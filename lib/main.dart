@@ -1,7 +1,6 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:todo_app/layouts/userLayout.dart';
 import 'package:todo_app/pages/courses.dart';
 import 'package:todo_app/pages/dashboard.dart';
 import 'package:todo_app/pages/login.dart';
