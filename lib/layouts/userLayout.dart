@@ -3,7 +3,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:todo_app/pages/courses.dart';
-import 'package:todo_app/pages/dashboard.dart';
 
 class UserLayout extends StatelessWidget {
   const UserLayout({super.key});
