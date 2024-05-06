@@ -8,7 +8,7 @@ class CustomAppBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 260, // Adjust height as needed
+        height: 230, // Adjust height as needed
         decoration: BoxDecoration(
           color: Colors.blueGrey[900],
           borderRadius: BorderRadius.circular(30),

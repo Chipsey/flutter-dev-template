@@ -11,7 +11,6 @@ class CustomDrawer extends StatelessWidget {
     String currentRoute = ModalRoute.of(context)?.settings.name ?? '';
     ///////////////// Basic Customs //////////////////
     return Drawer(
-      
       backgroundColor: Colors.grey[100],
       child: Padding(
         padding: const EdgeInsets.only(bottom: 40),
@@ -54,8 +53,10 @@ class CustomDrawer extends StatelessWidget {
               ListTile(
                 leading: Icon(Icons.category_rounded),
                 title: Text('Categories'),
+                tileColor:
+                    currentRoute == '/categories' ? Colors.grey[300] : null,
                 onTap: () {
-                  // Navigate to desired screen
+                  Navigator.pushNamed(context, '/categories');
                 },
               ),
             ]),
