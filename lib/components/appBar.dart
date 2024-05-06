@@ -3,12 +3,19 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
-class CustomAppBar extends StatelessWidget {
+class CustomAppBar extends StatefulWidget {
   const CustomAppBar({super.key});
+
+  @override
+  State<CustomAppBar> createState() => _CustomAppBarState();
+}
+
+class _CustomAppBarState extends State<CustomAppBar> {
+  void dispose() {}
   @override
   Widget build(BuildContext context) {
     return Container(
-        height: 230, // Adjust height as needed
+        height: 190, // Adjust height as needed
         decoration: BoxDecoration(
           color: Colors.grey[100],
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
@@ -28,6 +35,13 @@ class CustomAppBar extends StatelessWidget {
                   size: 30,
                 ),
               ),
+              Text(
+                "Xillica",
+                style: TextStyle(
+                    color: Colors.grey[900],
+                    fontSize: 25,
+                    fontWeight: FontWeight.w600),
+              ),
               GestureDetector(
                 // onTap: () {
                 //   Navigator.pushNamed(context, '/login');
@@ -41,17 +55,24 @@ class CustomAppBar extends StatelessWidget {
             ],
           ),
           SizedBox(
-            height: 20,
+            height: 10,
           ),
           Column(
             children: [
-              Text(
-                "Xillica",
-                style: TextStyle(
-                    color: Colors.grey[900],
-                    fontSize: 30,
-                    fontWeight: FontWeight.w600),
-              )
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20),
+                child: TextField(
+                  decoration: InputDecoration(
+                    contentPadding: EdgeInsets.symmetric(vertical: 10),
+                    prefixIcon: Icon(Icons.search),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(40),
+                    ),
+                    hintText: 'Search..',
+                    hintStyle: TextStyle(fontSize: 14),
+                  ),
+                ),
+              ),
             ],
           )
         ]));

@@ -5,6 +5,8 @@ import 'package:todo_app/pages/categories.dart';
 import 'package:todo_app/pages/courses.dart';
 import 'package:todo_app/pages/dashboard.dart';
 import 'package:todo_app/pages/login.dart';
+import 'package:todo_app/pages/stateful.dart';
+import 'package:todo_app/pages/todo.dart';
 
 void main() {
   runApp(MyApp());

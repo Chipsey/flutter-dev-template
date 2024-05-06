@@ -13,6 +13,8 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double fullWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
       backgroundColor: Colors.grey[300],
       drawer: CustomDrawer(),
@@ -29,7 +31,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   ///////////////////// Body /////////////////////
                   RoundedItems(),
-                  Cards(),
+                  Cards(fullWidth),
                 ],
               ),
             ),
@@ -118,19 +120,13 @@ class Dashboard extends StatelessWidget {
     );
   }
 
-  Cards() {
+  Cards(double fullWidth) {
     List<Map<String, dynamic>> cardItems = [
       {
-        'title': 'Kiwi',
-        'image': 'assets/images/kiwi.jpg',
+        'title': 'Orange',
+        'image': 'assets/images/orange_2.jpg',
         'description':
-            'A fuzzy brown fruit with green flesh and tiny black seeds, known for its tart flavor.'
-      },
-      {
-        'title': 'Lemon',
-        'image': 'assets/images/lemon.jpg',
-        'description':
-            'A bright yellow citrus fruit with a sour taste, commonly used in cooking and beverages.'
+            'A round citrus fruit with a thick orange peel and sweet, juicy flesh, rich in vitamin C.'
       },
       {
         'title': 'Strawberry',
@@ -139,10 +135,16 @@ class Dashboard extends StatelessWidget {
             'A heart-shaped, red fruit with seeds on its surface, known for its sweet flavor and juicy texture.'
       },
       {
-        'title': 'Orange',
-        'image': 'assets/images/orange_2.jpg',
+        'title': 'Lemon',
+        'image': 'assets/images/lemon.jpg',
         'description':
-            'A round citrus fruit with a thick orange peel and sweet, juicy flesh, rich in vitamin C.'
+            'A bright yellow citrus fruit with a sour taste, commonly used in cooking and beverages.'
+      },
+      {
+        'title': 'Kiwi',
+        'image': 'assets/images/kiwi.jpg',
+        'description':
+            'A fuzzy brown fruit with green flesh and tiny black seeds, known for its tart flavor.'
       },
       {
         'title': 'Banana',

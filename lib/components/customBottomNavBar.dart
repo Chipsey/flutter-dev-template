@@ -40,7 +40,7 @@ class CustomBottomNavBar extends StatelessWidget {
       height: 100, // Adjust height as needed
       decoration: BoxDecoration(
         color: Colors.white,
-        borderRadius: BorderRadius.circular(20),
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
       ),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.center,
@@ -52,7 +52,8 @@ class CustomBottomNavBar extends StatelessWidget {
               return Expanded(
                 child: GestureDetector(
                   onTap: () {
-                    Navigator.pushNamed(context, routeData['route']);
+                    if (routeData['route'] != currentRoute)
+                      Navigator.pushNamed(context, routeData['route']);
                   },
                   child: Container(
                     padding: EdgeInsets.symmetric(vertical: 20),
