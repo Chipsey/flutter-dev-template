@@ -1,6 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
+import 'package:todo_app/pages/categories.dart';
 import 'package:todo_app/pages/courses.dart';
 import 'package:todo_app/pages/dashboard.dart';
 import 'package:todo_app/pages/login.dart';
@@ -21,6 +22,7 @@ class MyApp extends StatelessWidget {
         '/login': (context) => Login(),
         '/dashboard': (context) => Dashboard(),
         '/courses': (context) => Courses(),
+        '/categories': (context) => Categories(),
       },
     );
   }
