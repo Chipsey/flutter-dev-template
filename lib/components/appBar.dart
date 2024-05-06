@@ -10,7 +10,7 @@ class CustomAppBar extends StatelessWidget {
     return Container(
         height: 230, // Adjust height as needed
         decoration: BoxDecoration(
-          color: Colors.blueGrey[900],
+          color: Colors.grey[100],
           borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
         ),
         padding: EdgeInsets.only(left: 20, top: 70, right: 20, bottom: 20),
@@ -24,7 +24,7 @@ class CustomAppBar extends StatelessWidget {
                 },
                 child: Icon(
                   Icons.menu,
-                  color: Colors.grey[100],
+                  color: Colors.grey[900],
                   size: 30,
                 ),
               ),
@@ -34,7 +34,7 @@ class CustomAppBar extends StatelessWidget {
                 // },
                 child: Icon(
                   Icons.notifications,
-                  color: Colors.grey[100],
+                  color: Colors.grey[900],
                   size: 30,
                 ),
               ),
@@ -48,7 +48,7 @@ class CustomAppBar extends StatelessWidget {
               Text(
                 "Xillica",
                 style: TextStyle(
-                    color: Colors.white,
+                    color: Colors.grey[900],
                     fontSize: 30,
                     fontWeight: FontWeight.w600),
               )

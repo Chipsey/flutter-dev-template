@@ -14,7 +14,7 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[300],
       drawer: CustomDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

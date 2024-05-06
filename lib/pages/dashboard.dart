@@ -14,7 +14,7 @@ class Dashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[100],
+      backgroundColor: Colors.grey[300],
       drawer: CustomDrawer(),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -82,7 +82,7 @@ class Dashboard extends StatelessWidget {
                 Container(
                   width: 100,
                   decoration: BoxDecoration(
-                    color: Colors.blueGrey[100],
+                    color: Colors.grey[900],
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
@@ -96,7 +96,7 @@ class Dashboard extends StatelessWidget {
                   padding: EdgeInsets.symmetric(vertical: 20),
                   child: Icon(
                     data['icon'],
-                    color: Colors.grey[900],
+                    color: Colors.grey[100],
                     size: 35,
                   ),
                 ),
