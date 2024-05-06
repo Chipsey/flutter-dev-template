@@ -11,7 +11,7 @@ class CustomAppBar extends StatelessWidget {
         height: 230, // Adjust height as needed
         decoration: BoxDecoration(
           color: Colors.blueGrey[900],
-          borderRadius: BorderRadius.circular(30),
+          borderRadius: BorderRadius.vertical(bottom: Radius.circular(30)),
         ),
         padding: EdgeInsets.only(left: 20, top: 70, right: 20, bottom: 20),
         child: Column(crossAxisAlignment: CrossAxisAlignment.center, children: [
