@@ -176,7 +176,17 @@ class Dashboard extends StatelessWidget {
       },
     ];
 
+    //Square cards
     double cardWidth = 350;
+    double cardHeight = 350;
+
+    //Wide cards
+    // double cardWidth = 350;
+    // double cardHeight = 200;
+
+    //Small cards
+    // double cardWidth = 170;
+    // double cardHeight = 200;
 
     return Padding(
       padding: const EdgeInsets.only(top: 30),
@@ -210,7 +220,7 @@ class Dashboard extends StatelessWidget {
               children: cardItems.map((data) {
                 return Container(
                   width: cardWidth,
-                  height: 200,
+                  height: cardHeight,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(20),
                   ),
