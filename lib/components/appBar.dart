@@ -11,7 +11,22 @@ class CustomAppBar extends StatefulWidget {
 }
 
 class _CustomAppBarState extends State<CustomAppBar> {
-  void dispose() {}
+  //////////// Variables //////////////
+
+  /////////// Input Variables ////////////////////////
+  final _searchQuery = new TextEditingController();
+
+  /////////// Dispose Input Variables ///////////////
+  void dispose() {
+    _searchQuery.dispose();
+    super.dispose();
+  }
+
+  ////////////// Methods ////////////////////////
+  void handleSearch() {
+    print(_searchQuery.text);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -62,6 +77,10 @@ class _CustomAppBarState extends State<CustomAppBar> {
               Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 20),
                 child: TextField(
+                  controller: _searchQuery,
+                  onChanged: (value) {
+                    handleSearch();
+                  },
                   decoration: InputDecoration(
                     contentPadding: EdgeInsets.symmetric(vertical: 10),
                     prefixIcon: Icon(Icons.search),

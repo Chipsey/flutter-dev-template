@@ -21,7 +21,7 @@ class CustomDrawer extends StatelessWidget {
             Column(children: [
               DrawerHeader(
                 decoration: BoxDecoration(
-                  color: Colors.blueGrey[900],
+                  color: Colors.grey[900],
                 ),
                 child: Center(
                   child: Text(

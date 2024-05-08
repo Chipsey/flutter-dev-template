@@ -1,9 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:todo_app/components/appBar.dart';
-import 'package:todo_app/components/customBottomNavBar.dart';
-import 'package:todo_app/components/drawer.dart';
+import 'package:Xillica/components/appBar.dart';
+import 'package:Xillica/components/customBottomNavBar.dart';
+import 'package:Xillica/components/drawer.dart';
 
 class Courses extends StatefulWidget {
   const Courses({Key? key});

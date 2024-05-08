@@ -1,19 +1,73 @@
 import 'dart:ui';
+import 'dart:async';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:todo_app/components/appBar.dart';
-import 'package:todo_app/components/customBottomNavBar.dart';
-import 'package:todo_app/components/drawer.dart';
+import 'package:Xillica/components/appBar.dart';
+import 'package:Xillica/components/customBottomNavBar.dart';
+import 'package:Xillica/components/drawer.dart';
+import 'package:Xillica/services/notification_service.dart';
 
-class Dashboard extends StatelessWidget {
+class Dashboard extends StatefulWidget {
   const Dashboard({Key? key});
 
   @override
+  State<Dashboard> createState() => _DashboardState();
+}
+
+class _DashboardState extends State<Dashboard> with WidgetsBindingObserver {
+  late Timer _timer = Timer(Duration.zero, () {});
+
+  @override
+  void initState() {
+    super.initState();
+    WidgetsBinding.instance?.addObserver(this);
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance?.removeObserver(this);
+    _timer.cancel();
+    super.dispose();
+  }
+
+  @override
+  void didChangeAppLifecycleState(AppLifecycleState state) {
+    super.didChangeAppLifecycleState(state);
+    print("state: " + state.toString());
+    if (state == AppLifecycleState.paused) {
+      _startPeriodicNotifications();
+    } else {
+      _stopPeriodicNotifications();
+    }
+  }
+
+  void _startPeriodicNotifications() {
+    _timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
+      NotificationService()
+          .showNotification(title: 'Open me', body: 'Open the app now..');
+    });
+  }
+
+  void _stopPeriodicNotifications() {
+    _timer.cancel();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    double fullWidth = MediaQuery.of(context).size.width;
+    double fullDisplayWidth = MediaQuery.of(context).size.width;
+
+    Map<String, double> widthList(BuildContext context) {
+      return {
+        'fullWidth': fullDisplayWidth - 80,
+        'halfWidth': (fullDisplayWidth - 90) / 2,
+        'textWidthPrimary': fullDisplayWidth / 27,
+        'textWidthTitle': fullDisplayWidth / 22,
+        'textWidthSecondary': fullDisplayWidth / 40,
+      };
+    }
 
     return Scaffold(
       backgroundColor: Colors.grey[300],
@@ -31,7 +85,7 @@ class Dashboard extends StatelessWidget {
                 children: [
                   ///////////////////// Body /////////////////////
                   RoundedItems(),
-                  Cards(fullWidth),
+                  Cards(widthList(context)),
                 ],
               ),
             ),
@@ -120,7 +174,7 @@ class Dashboard extends StatelessWidget {
     );
   }
 
-  Cards(double fullWidth) {
+  Cards(Map<String, double> widthList) {
     List<Map<String, dynamic>> cardItems = [
       {
         'title': 'Orange',
@@ -179,15 +233,15 @@ class Dashboard extends StatelessWidget {
     ];
 
     //Square cards
-    double cardWidth = 350;
-    double cardHeight = 350;
+    double cardWidth = widthList['fullWidth'] ?? 350;
+    double cardHeight = widthList['fullWidth'] ?? 350;
 
-    //Wide cards
-    // double cardWidth = 350;
+    // //Wide cards
+    // double cardWidth = widthList['fullWidth'] ?? 350;
     // double cardHeight = 200;
 
-    //Small cards
-    // double cardWidth = 170;
+    // Small cards
+    // double cardWidth = widthList['halfWidth'] ?? 350;
     // double cardHeight = 200;
 
     return Padding(
@@ -203,12 +257,14 @@ class Dashboard extends StatelessWidget {
                 children: [
                   Text(
                     "Categories",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: widthList['textWidthPrimary'],
+                        fontWeight: FontWeight.bold),
                   ),
                   Text(
                     "See All",
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: widthList['textWidthPrimary'],
                         fontWeight: FontWeight.bold,
                         color: Colors.blueGrey[500]),
                   ),
@@ -272,7 +328,8 @@ class Dashboard extends StatelessWidget {
                                 Text(
                                   data['title'],
                                   style: TextStyle(
-                                    fontSize: 20, // Adjust font size as needed
+                                    fontSize: widthList[
+                                        'textWidthTitle'], // Adjust font size as needed
                                     fontWeight: FontWeight.bold,
                                     color: Colors
                                         .white, // Text color on top of the image
@@ -280,8 +337,11 @@ class Dashboard extends StatelessWidget {
                                 ),
                                 Text(
                                   data['description'],
+                                  overflow: TextOverflow.ellipsis,
+                                  maxLines: 2,
                                   style: TextStyle(
-                                    fontSize: 10, // Adjust font size as needed
+                                    fontSize: widthList[
+                                        'textWidthSecondary'], // Adjust font size as needed
                                     fontWeight: FontWeight.w500,
                                     color: Colors
                                         .white, // Text color on top of the image
@@ -339,23 +399,30 @@ class Dashboard extends StatelessWidget {
                                   ),
                                 ),
                                 /////////// For wide cards ////////////
-                                Expanded(
-                                  flex: 4,
-                                  child: Container(
-                                    child: Text(
-                                      'Buy ${data['title']}, today special',
-                                      style: TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white,
+                                if (cardWidth >= 300)
+                                  Expanded(
+                                    flex: 4,
+                                    child: Container(
+                                      child: Text(
+                                        'Buy ${data['title']}, today special',
+                                        style: TextStyle(
+                                          fontSize:
+                                              widthList['textWidthSecondary'],
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white,
+                                        ),
                                       ),
                                     ),
                                   ),
-                                ),
                                 Expanded(
                                   flex: 1,
                                   child: GestureDetector(
-                                    onTap: () {},
+                                    onTap: () {
+                                      print("notification");
+                                      NotificationService().showNotification(
+                                          title: data['title'],
+                                          body: data['description']);
+                                    },
                                     child: Container(
                                       alignment: Alignment.center,
                                       decoration: BoxDecoration(
