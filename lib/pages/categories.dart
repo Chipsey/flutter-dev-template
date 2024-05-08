@@ -4,15 +4,27 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/widgets.dart';
-import 'package:todo_app/components/appBar.dart';
-import 'package:todo_app/components/customBottomNavBar.dart';
-import 'package:todo_app/components/drawer.dart';
+import 'package:Xillica/components/appBar.dart';
+import 'package:Xillica/components/customBottomNavBar.dart';
+import 'package:Xillica/components/drawer.dart';
 
 class Categories extends StatelessWidget {
   const Categories({Key? key});
 
   @override
   Widget build(BuildContext context) {
+    double fullDisplayWidth = MediaQuery.of(context).size.width;
+
+    Map<String, double> widthList(BuildContext context) {
+      return {
+        'fullWidth': fullDisplayWidth - 80,
+        'halfWidth': (fullDisplayWidth - 90) / 2,
+        'textPrimary': fullDisplayWidth / 27,
+        'textTitle': fullDisplayWidth / 22,
+        'textSecondary': fullDisplayWidth / 40,
+      };
+    }
+
     return Scaffold(
       backgroundColor: Colors.grey[300],
       drawer: CustomDrawer(),
@@ -28,7 +40,7 @@ class Categories extends StatelessWidget {
               child: Column(
                 children: [
                   ///////////////////// Body /////////////////////
-                  CustomList(),
+                  CustomList(widthList(context)),
                 ],
               ),
             ),
@@ -40,7 +52,7 @@ class Categories extends StatelessWidget {
     );
   }
 
-  CustomList() {
+  CustomList(Map<String, double> widthList) {
     List<Map<String, dynamic>> listItems = [
       {
         'title': 'Kiwi',
@@ -98,7 +110,7 @@ class Categories extends StatelessWidget {
       },
     ];
 
-    double listWidth = 350;
+    double listWidth = widthList['fullWidth'] ?? 350;
 
     return Padding(
       padding: const EdgeInsets.only(top: 30),
@@ -113,12 +125,14 @@ class Categories extends StatelessWidget {
                 children: [
                   Text(
                     "Categories",
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                        fontSize: widthList['textPrimary'],
+                        fontWeight: FontWeight.bold),
                   ),
                   Text(
                     "See All",
                     style: TextStyle(
-                        fontSize: 15,
+                        fontSize: widthList['textPrimary'],
                         fontWeight: FontWeight.bold,
                         color: Colors.blueGrey[500]),
                   ),
@@ -167,6 +181,23 @@ class Categories extends StatelessWidget {
                             ),
                           ),
                         ),
+                        SizedBox(
+                          width: double.infinity,
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              gradient: LinearGradient(
+                                begin: Alignment.centerRight,
+                                end: Alignment.centerLeft,
+                                colors: [
+                                  Colors.transparent,
+                                  Colors.black.withOpacity(0.4),
+                                  Colors.transparent,
+                                ],
+                              ),
+                            ),
+                          ),
+                        ),
                         Positioned(
                           bottom: 15, // Adjust position as needed
                           left: 20, // Adjust position as needed
@@ -197,7 +228,7 @@ class Categories extends StatelessWidget {
                                     child: Text(
                                       'Buy ${data['title']}, today special',
                                       style: TextStyle(
-                                        fontSize: 10,
+                                        fontSize: widthList['textSecondary'],
                                         fontWeight: FontWeight.bold,
                                         color: Colors.white,
                                       ),
@@ -217,7 +248,7 @@ class Categories extends StatelessWidget {
                                       child: Text(
                                         "Add",
                                         style: TextStyle(
-                                          fontSize: 10,
+                                          fontSize: widthList['textSecondary'],
                                           fontWeight: FontWeight.bold,
                                           color: Colors.black,
                                         ),
