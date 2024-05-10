@@ -43,11 +43,11 @@ class CustomDrawer extends StatelessWidget {
                 },
               ),
               ListTile(
-                leading: Icon(Icons.bookmark_add),
-                title: Text('Courses'),
-                tileColor: currentRoute == '/courses' ? Colors.grey[300] : null,
+                leading: Icon(Icons.shopping_cart_rounded),
+                title: Text('Cart'),
+                tileColor: currentRoute == '/cart' ? Colors.grey[300] : null,
                 onTap: () {
-                  Navigator.pushNamed(context, '/courses');
+                  Navigator.pushNamed(context, '/cart');
                 },
               ),
               ListTile(
@@ -57,6 +57,14 @@ class CustomDrawer extends StatelessWidget {
                     currentRoute == '/categories' ? Colors.grey[300] : null,
                 onTap: () {
                   Navigator.pushNamed(context, '/categories');
+                },
+              ),
+              ListTile(
+                leading: Icon(Icons.camera),
+                title: Text('Camera'),
+                tileColor: currentRoute == '/camera' ? Colors.grey[300] : null,
+                onTap: () {
+                  Navigator.pushNamed(context, '/camera');
                 },
               ),
             ]),

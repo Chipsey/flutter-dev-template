@@ -1,3 +1,4 @@
+import 'package:Xillica/services/notification_service.dart';
 import 'package:flutter/material.dart';
 import 'package:Xillica/validators/validators.dart';
 
@@ -22,6 +23,8 @@ class _LoginState extends State<Login> {
       // Form is valid, proceed with login
       _formKey.currentState!.save();
       print("Username: $_username, Password: $_password");
+      NotificationService().showNotification(
+          title: "Greetings, $_username.", body: "Login successful.");
       Navigator.pushNamed(context, '/dashboard');
     }
   }

@@ -5,14 +5,14 @@ import 'package:Xillica/components/appBar.dart';
 import 'package:Xillica/components/customBottomNavBar.dart';
 import 'package:Xillica/components/drawer.dart';
 
-class Courses extends StatefulWidget {
-  const Courses({Key? key});
+class Cart extends StatefulWidget {
+  const Cart({Key? key});
 
   @override
-  State<Courses> createState() => _CoursesState();
+  State<Cart> createState() => _CartState();
 }
 
-class _CoursesState extends State<Courses> {
+class _CartState extends State<Cart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -50,7 +50,7 @@ class _CoursesState extends State<Courses> {
       },
       {
         'icon': Icons.bookmark_add,
-        'text': 'Courses',
+        'text': 'Cart',
       },
       {
         'icon': Icons.category_rounded,

@@ -1,6 +1,7 @@
 import 'dart:ui';
 import 'dart:async';
 
+import 'package:Xillica/pages/order_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
@@ -9,6 +10,7 @@ import 'package:Xillica/components/appBar.dart';
 import 'package:Xillica/components/customBottomNavBar.dart';
 import 'package:Xillica/components/drawer.dart';
 import 'package:Xillica/services/notification_service.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class Dashboard extends StatefulWidget {
   const Dashboard({Key? key});
@@ -23,12 +25,12 @@ class _DashboardState extends State<Dashboard> with WidgetsBindingObserver {
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance?.addObserver(this);
+    WidgetsBinding.instance.addObserver(this);
   }
 
   @override
   void dispose() {
-    WidgetsBinding.instance?.removeObserver(this);
+    WidgetsBinding.instance.removeObserver(this);
     _timer.cancel();
     super.dispose();
   }
@@ -45,7 +47,7 @@ class _DashboardState extends State<Dashboard> with WidgetsBindingObserver {
   }
 
   void _startPeriodicNotifications() {
-    _timer = Timer.periodic(Duration(seconds: 5), (Timer timer) {
+    _timer = Timer.periodic(Duration(seconds: 6), (Timer timer) {
       NotificationService()
           .showNotification(title: 'Open me', body: 'Open the app now..');
     });
@@ -138,7 +140,7 @@ class _DashboardState extends State<Dashboard> with WidgetsBindingObserver {
                 Container(
                   width: 100,
                   decoration: BoxDecoration(
-                    color: Colors.grey[900],
+                    color: Colors.grey[800],
                     shape: BoxShape.circle,
                     boxShadow: [
                       BoxShadow(
@@ -167,7 +169,7 @@ class _DashboardState extends State<Dashboard> with WidgetsBindingObserver {
                   ),
                 ),
               ],
-            ),
+            ).animate().move(duration: 900.ms, curve: Easing.legacyDecelerate),
           );
         }).toList(),
       ),
@@ -180,55 +182,64 @@ class _DashboardState extends State<Dashboard> with WidgetsBindingObserver {
         'title': 'Orange',
         'image': 'assets/images/orange_2.jpg',
         'description':
-            'A round citrus fruit with a thick orange peel and sweet, juicy flesh, rich in vitamin C.'
+            'A round citrus fruit with a thick orange peel and sweet, juicy flesh, rich in vitamin C.',
+        'price': 1.99,
       },
       {
         'title': 'Strawberry',
         'image': 'assets/images/strawberry.jpg',
         'description':
-            'A heart-shaped, red fruit with seeds on its surface, known for its sweet flavor and juicy texture.'
+            'A heart-shaped, red fruit with seeds on its surface, known for its sweet flavor and juicy texture.',
+        'price': 2.49,
       },
       {
         'title': 'Lemon',
         'image': 'assets/images/lemon.jpg',
         'description':
-            'A bright yellow citrus fruit with a sour taste, commonly used in cooking and beverages.'
+            'A bright yellow citrus fruit with a sour taste, commonly used in cooking and beverages.',
+        'price': 0.99,
       },
       {
         'title': 'Kiwi',
         'image': 'assets/images/kiwi.jpg',
         'description':
-            'A fuzzy brown fruit with green flesh and tiny black seeds, known for its tart flavor.'
+            'A fuzzy brown fruit with green flesh and tiny black seeds, known for its tart flavor.',
+        'price': 1.79,
       },
       {
         'title': 'Banana',
         'image': 'assets/images/banana.jpg',
         'description':
-            'A long curved fruit with a yellow peel and soft, sweet flesh, often eaten raw or used in desserts.'
+            'A long curved fruit with a yellow peel and soft, sweet flesh, often eaten raw or used in desserts.',
+        'price': 0.69,
       },
       {
         'title': 'Watermelon',
         'image': 'assets/images/melon.jpg',
         'description':
-            'A large, juicy fruit with a thick green rind, pink flesh, and black seeds, often enjoyed in the summer.'
+            'A large, juicy fruit with a thick green rind, pink flesh, and black seeds, often enjoyed in the summer.',
+        'price': 3.99,
       },
       {
         'title': 'Cherry',
         'image': 'assets/images/cherry.jpg',
         'description':
-            'A small, round fruit with a red or dark purple skin, sweet or tart flavor, and a hard stone in the center.'
+            'A small, round fruit with a red or dark purple skin, sweet or tart flavor, and a hard stone in the center.',
+        'price': 4.49,
       },
       {
         'title': 'Papaya',
         'image': 'assets/images/papaya.jpg',
         'description':
-            'A tropical fruit with a yellow or orange flesh, sweet flavor, and black seeds, rich in vitamins and enzymes.'
+            'A tropical fruit with a yellow or orange flesh, sweet flavor, and black seeds, rich in vitamins and enzymes.',
+        'price': 2.99,
       },
       {
         'title': 'Avocado',
         'image': 'assets/images/avocado.jpg',
         'description':
-            'A pear-shaped fruit with green or black skin, creamy texture, and nutty flavor, often used in salads and spreads.'
+            'A pear-shaped fruit with green or black skin, creamy texture, and nutty flavor, often used in salads and spreads.',
+        'price': 1.49,
       },
     ];
 
@@ -420,8 +431,20 @@ class _DashboardState extends State<Dashboard> with WidgetsBindingObserver {
                                     onTap: () {
                                       print("notification");
                                       NotificationService().showNotification(
-                                          title: data['title'],
-                                          body: data['description']);
+                                        title: data['title'],
+                                        body: data['description'],
+                                        imageUrl: data['image'],
+                                      );
+                                      Navigator.push(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) => Order(
+                                              name: data['title'],
+                                              description: data['description'],
+                                              price: data['price'],
+                                              image: data['image']),
+                                        ),
+                                      );
                                     },
                                     child: Container(
                                       alignment: Alignment.center,
@@ -453,6 +476,8 @@ class _DashboardState extends State<Dashboard> with WidgetsBindingObserver {
           ],
         ),
       ),
-    );
+    )
+        .animate(delay: 300.ms)
+        .move(duration: 900.ms, curve: Easing.legacyDecelerate);
   }
 }

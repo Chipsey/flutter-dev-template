@@ -9,7 +9,7 @@ class NotificationService {
 
   Future<void> initNotification() async {
     AndroidInitializationSettings initializationSettingsAndroid =
-        const AndroidInitializationSettings("logo");
+        const AndroidInitializationSettings("logo.png");
 
     var initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: true,
@@ -38,16 +38,42 @@ class NotificationService {
         );
   }
 
-  notificationDetails() {
-    return const NotificationDetails(
+  ///////////////// Big picture is not still functional ////////////////
+  notificationDetails({String? imageUrl}) {
+    if (imageUrl != null) {
+      print('Image URL: $imageUrl'); // Debug print
+      BigPictureStyleInformation bigPictureStyleInformation =
+          BigPictureStyleInformation(
+        DrawableResourceAndroidBitmap(imageUrl),
+        contentTitle: 'Code Compile',
+        largeIcon: DrawableResourceAndroidBitmap(imageUrl),
+      );
+      print('Big Picture Style: $bigPictureStyleInformation'); // Debug print
+      return NotificationDetails(
+        android: AndroidNotificationDetails(
+          'channelId',
+          'channelName',
+          importance: Importance.max,
+          styleInformation: bigPictureStyleInformation,
+        ),
+        iOS: DarwinNotificationDetails(),
+      );
+    } else {
+      return NotificationDetails(
         android: AndroidNotificationDetails('channelId', 'channelName',
             importance: Importance.max),
-        iOS: DarwinNotificationDetails());
+        iOS: DarwinNotificationDetails(),
+      );
+    }
   }
 
   Future<void> showNotification(
-      {int id = 0, String? title, String? body, String? payload}) async {
+      {int id = 0,
+      String? title,
+      String? body,
+      String? payload,
+      String? imageUrl}) async {
     await notificationsPlugin.show(
-        id, title, body, await notificationDetails());
+        id, title, body, await notificationDetails(imageUrl: imageUrl));
   }
 }

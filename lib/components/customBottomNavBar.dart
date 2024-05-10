@@ -11,9 +11,9 @@ class CustomBottomNavBar extends StatelessWidget {
       'text': 'Home',
     },
     {
-      'route': '/courses',
-      'icon': Icons.bookmark_add,
-      'text': 'Courses',
+      'route': '/cart',
+      'icon': Icons.shopping_cart_rounded,
+      'text': 'Cart',
     },
     {
       'route': '/categories',

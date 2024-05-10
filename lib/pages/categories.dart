@@ -7,6 +7,7 @@ import 'package:flutter/widgets.dart';
 import 'package:Xillica/components/appBar.dart';
 import 'package:Xillica/components/customBottomNavBar.dart';
 import 'package:Xillica/components/drawer.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 
 class Categories extends StatelessWidget {
   const Categories({Key? key});
@@ -269,6 +270,8 @@ class Categories extends StatelessWidget {
           ],
         ),
       ),
-    );
+    )
+        .animate(delay: 100.ms)
+        .move(duration: 2.seconds, curve: Easing.legacyDecelerate);
   }
 }
