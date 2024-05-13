@@ -48,11 +48,14 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
               ),
               SizedBox(height: 20),
               _selectedImage != null
-                  ? Image.file(
-                      _selectedImage!,
-                      height: 200,
-                      width: 200,
-                      fit: BoxFit.cover,
+                  ? Column(
+                      children: [
+                        Image.file(
+                          _selectedImage!,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ],
                     )
                   : Container(),
             ],
