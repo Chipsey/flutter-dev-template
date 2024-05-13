@@ -1,8 +1,12 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:Xillica/components/customBottomNavBar.dart';
+// import 'package:Xillica/components/drawer.dart';
 import 'package:camera/camera.dart';
 import 'package:flutter/material.dart';
+
+// import 'package:Xillica/components/appBar.dart';
 
 class CameraService extends StatefulWidget {
   const CameraService({super.key, required this.camera});
@@ -85,9 +89,41 @@ class DisplayPictureScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double fullDisplayWidth = MediaQuery.of(context).size.width;
+
     return Scaffold(
-      appBar: AppBar(title: const Text('Display the Picture')),
-      body: Image.file(File(imagePath)),
+      backgroundColor: Colors.grey[300],
+      // drawer: CustomDrawer(),
+      appBar: AppBar(title: const Text('Display Picture')),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          ////////////////// App Bar /////////////////////
+          // CustomAppBar(),
+          Expanded(
+            //////////////////// Scrollable Content /////////////////////
+            child: SingleChildScrollView(
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Column(
+                  children: [
+                    ///////////////////// Body /////////////////////
+                    Center(
+                      child: Container(
+                        width: fullDisplayWidth * 0.7,
+                        child: Image.file(File(imagePath)),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
+          // Bottom Nav Bar
+          CustomBottomNavBar(),
+        ],
+      ),
     );
   }
 }

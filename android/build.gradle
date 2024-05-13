@@ -1,3 +1,14 @@
+buildscript {
+    repositories {
+        google() // Google's Maven repository
+        mavenCentral()// JCenter repository to resolve dependencies
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:4.2.2' // Android Gradle Plugin version
+    }
+}
+
+
 allprojects {
     repositories {
         google()

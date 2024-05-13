@@ -67,6 +67,14 @@ class CustomDrawer extends StatelessWidget {
                   Navigator.pushNamed(context, '/camera');
                 },
               ),
+              ListTile(
+                leading: Icon(Icons.image),
+                title: Text('Image Picker'),
+                tileColor: currentRoute == '/image_picker' ? Colors.grey[300] : null,
+                onTap: () {
+                  Navigator.pushNamed(context, '/image_picker');
+                },
+              ),
             ]),
 
             //////////////// Drawer Bottom Content ///////////////////////////

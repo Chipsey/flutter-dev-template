@@ -429,12 +429,15 @@ class _DashboardState extends State<Dashboard> with WidgetsBindingObserver {
                                   flex: 1,
                                   child: GestureDetector(
                                     onTap: () {
-                                      print("notification");
-                                      NotificationService().showNotification(
-                                        title: data['title'],
-                                        body: data['description'],
-                                        imageUrl: data['image'],
-                                      );
+                                      try {
+                                        NotificationService().showNotification(
+                                          title: data['title'],
+                                          body: data['description'],
+                                        );
+                                      } catch (error) {
+                                        print(
+                                            "Error showing notification: ${error.toString()}");
+                                      };
                                       Navigator.push(
                                         context,
                                         MaterialPageRoute(

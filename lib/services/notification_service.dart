@@ -9,7 +9,7 @@ class NotificationService {
 
   Future<void> initNotification() async {
     AndroidInitializationSettings initializationSettingsAndroid =
-        const AndroidInitializationSettings("logo.png");
+        const AndroidInitializationSettings("logo");
 
     var initializationSettingsIOS = DarwinInitializationSettings(
         requestAlertPermission: true,
