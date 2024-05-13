@@ -16,22 +16,22 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   NotificationService().initNotification();
 
-  final cameras = await availableCameras();
-  print("Cameras: " + cameras.toString());
-  final firstCamera = cameras.last;
+  // final cameras = await availableCameras();
+  // print("Cameras: " + cameras.toString());
+  // final firstCamera = cameras.last;
 
-  runApp(MyApp(
-    firstCamera: firstCamera,
-  ));
+  // runApp(MyApp(
+  //   firstCamera: firstCamera,
+  // ));
 
-  // runApp(MyApp());
+  runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
-  final firstCamera;
-  const MyApp({super.key, required this.firstCamera});
+  // final firstCamera;
+  // const MyApp({super.key, required this.firstCamera});
 
-  // const MyApp({super.key});
+  const MyApp({super.key});
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
@@ -42,10 +42,10 @@ class MyApp extends StatelessWidget {
         '/dashboard': (context) => Dashboard(),
         '/cart': (context) => Cart(),
         '/categories': (context) => Categories(),
-        '/image_picker': (context) => ImagePicker(),
-        '/camera': (context) => CameraService(
-              camera: firstCamera,
-            ),
+        '/image_picker': (context) => CustomImagePicker(),
+        // '/camera': (context) => CameraService(
+        //       camera: firstCamera,
+        //     ),
       },
     );
   }

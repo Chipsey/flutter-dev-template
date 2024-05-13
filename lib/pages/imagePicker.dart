@@ -1,15 +1,19 @@
+import 'dart:io'; // Add this import for File class
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
-class ImagePicker extends StatefulWidget {
-  const ImagePicker({
+class CustomImagePicker extends StatefulWidget {
+  const CustomImagePicker({
     Key? key,
   }) : super(key: key);
 
   @override
-  State<ImagePicker> createState() => _ImagePickerState();
+  State<CustomImagePicker> createState() => _CustomImagePickerState();
 }
 
-class _ImagePickerState extends State<ImagePicker> {
+class _CustomImagePickerState extends State<CustomImagePicker> {
+  File? _selectedImage;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -17,17 +21,66 @@ class _ImagePickerState extends State<ImagePicker> {
       appBar: AppBar(
         title: Text('Image Picker'),
       ),
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [],
+      body: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(20.0),
+          child: Column(
+            children: [
+              MaterialButton(
+                color: Colors.green[600],
+                child: const Text(
+                  "Pick Image From Gallery",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  _pickImageFromGallery();
+                },
+              ),
+              MaterialButton(
+                color: Colors.blue[600],
+                child: const Text(
+                  "Pick Image From Camera",
+                  style: TextStyle(color: Colors.white),
+                ),
+                onPressed: () {
+                  _pickImageFromCamera();
+                },
+              ),
+              SizedBox(height: 20),
+              _selectedImage != null
+                  ? Image.file(
+                      _selectedImage!,
+                      height: 200,
+                      width: 200,
+                      fit: BoxFit.cover,
+                    )
+                  : Container(),
+            ],
+          ),
+        ),
       ),
     );
   }
 
-  Future pickImageFromGallery() async {
+  Future _pickImageFromGallery() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.gallery);
+
+    if (pickedImage != null) {
+      setState(() {
+        _selectedImage = File(pickedImage.path);
+      });
+    }
   }
 
+  Future _pickImageFromCamera() async {
+    final pickedImage =
+        await ImagePicker().pickImage(source: ImageSource.camera);
+
+    if (pickedImage != null) {
+      setState(() {
+        _selectedImage = File(pickedImage.path);
+      });
+    }
+  }
 }
-
-
