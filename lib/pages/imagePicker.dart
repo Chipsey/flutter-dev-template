@@ -1,6 +1,10 @@
 import 'dart:io'; // Add this import for File class
+import 'package:Xillica/components/loading_screen.dart';
+import 'package:Xillica/pages/imageEditor.dart';
+import 'package:Xillica/providers/image_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:provider/provider.dart';
 
 class CustomImagePicker extends StatefulWidget {
   const CustomImagePicker({
@@ -13,9 +17,23 @@ class CustomImagePicker extends StatefulWidget {
 
 class _CustomImagePickerState extends State<CustomImagePicker> {
   File? _selectedImage;
+  late CustomImageProvider imageProvider;
+
+  bool isDataLoading = false;
+
+  @override
+  void initState() {
+    isDataLoading = true;
+    imageProvider = Provider.of<CustomImageProvider>(context, listen: false);
+    isDataLoading = false;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
+    if (isDataLoading) {
+      return LoadingScreen();
+    }
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
@@ -33,7 +51,9 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                   style: TextStyle(color: Colors.white),
                 ),
                 onPressed: () {
+                  isDataLoading = true;
                   _pickImageFromGallery();
+                  isDataLoading = false;
                 },
               ),
               MaterialButton(
@@ -55,6 +75,21 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
                           width: double.infinity,
                           fit: BoxFit.cover,
                         ),
+                        SizedBox(
+                          height: 20,
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            backgroundColor: Colors.black,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pushNamed('/image_editor');
+                          },
+                          child: Text(
+                            'Edit',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                        ),
                       ],
                     )
                   : Container(),
@@ -65,14 +100,18 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
     );
   }
 
-  Future _pickImageFromGallery() async {
-    final pickedImage =
+  Future<void> _pickImageFromGallery() async {
+    final XFile? pickedImage =
         await ImagePicker().pickImage(source: ImageSource.gallery);
 
     if (pickedImage != null) {
+      final File imageFile = File(pickedImage.path);
+
       setState(() {
-        _selectedImage = File(pickedImage.path);
+        _selectedImage = imageFile;
       });
+
+      imageProvider.changeImageFile(imageFile);
     }
   }
 
@@ -86,4 +125,15 @@ class _CustomImagePickerState extends State<CustomImagePicker> {
       });
     }
   }
+
+  // Future<void> _openImageEditorPage() async {
+  //   if (_selectedImage != null) {
+  //     await Navigator.of(context).push(
+  //       MaterialPageRoute(
+  //         builder: (context) =>
+  //             CustomImageEditor(selectedImage: _selectedImage!),
+  //       ),
+  //     );
+  //   }
+  // }
 }
